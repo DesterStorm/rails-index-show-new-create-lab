@@ -25,8 +25,8 @@ describe 'form page' do
   it 'new form submits content and renders form content' do
     visit new_coupon_path
 
-    fill_in 'coupon[coupon_code]', with: "YAYFREE"
-    fill_in 'coupon[store]', with: "Hobby Lobby"
+    fill_in 'coupons[coupon_code]', with: "YAYFREE"
+    fill_in 'coupons[store]', with: "Hobby Lobby"
 
     click_on "Submit Coupon"
 
@@ -36,8 +36,8 @@ describe 'form page' do
   it 'creates a record in the database' do
     visit new_coupon_path
 
-    fill_in 'coupon[coupon_code]', with: "FREEITEM"
-    fill_in 'coupon[store]', with: "Quip"
+    fill_in 'coupons[coupon_code]', with: "FREEITEM"
+    fill_in 'coupons[store]', with: "Quip"
 
     click_on "Submit Coupon"
 
@@ -55,7 +55,7 @@ describe 'Show page' do
     expect(page.status_code).to eq(200)
   end
 
-  it 'renders the coupon code in a h1 tag' do
+  it 'renders the coupons code in a h1 tag' do
     visit coupon_path(@coupon)
     expect(page).to have_css("h1", text: "FREESTUFF")
   end
@@ -67,7 +67,7 @@ describe 'Show page' do
 end
 
 describe 'linking from the index page to the show page' do
-  it 'index page coupon code text is hyperlinked to coupon page' do
+  it 'index page coupons code text is hyperlinked to coupons page' do
     linked_coupon = Coupon.create(coupon_code: "FREESTUFF", store: "Chipotle")
     visit coupons_path
     expect(page).to have_link(linked_coupon.coupon_code, href: coupon_path(linked_coupon))
